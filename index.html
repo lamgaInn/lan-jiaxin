@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>LamgaInn 蓝嘉昕</title>
+    <meta
+      name="description"
+      content="LamgaInn 蓝嘉昕，现居深圳的视觉设计师。LamgaInn is a visual designer based in Shenzhen."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;600;700&family=Outfit:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+  </head>
+  <body>
+    <a class="skip" href="#work">跳到作品 Skip to work</a>
+    <div class="shell" id="top">
+      <nav class="topnav">
+        <a class="logo" href="#top">LamgaInn<span>.</span></a>
+        <div class="topnav__links">
+          <p class="topnav__title">作品集回顾<span class="en">Portfolio Review</span></p>
+        </div>
+        <div class="topnav__actions">
+          <a class="trial" href="#work">进入作品</a>
+        </div>
+        <button class="hamburger" type="button" aria-expanded="false" aria-label="菜单 Menu">
+          <span></span><span></span><span></span>
+        </button>
+        <div class="mobile-nav" id="mobile-nav">
+          <p class="topnav__title">作品集回顾<span class="en">Portfolio Review</span></p>
+          <a href="#work" data-close class="trial">进入作品</a>
+        </div>
+      </nav>
+
+      <main class="hero-main">
+        <div class="hero-copy">
+          <header class="identity">
+            <h1><span class="hero-en">LamgaInn</span><span class="hero-zh">蓝嘉昕</span></h1>
+            <p class="identity-role">
+              <span>视觉设计师 · 高级教师 · 广东省青年美术家协会会员</span>
+              <span class="en">Visual Designer · Senior Teacher · Member of the Guangdong Youth Artists Association</span>
+            </p>
+          </header>
+          <p class="place">深圳<span class="en">Shenzhen</span></p>
+          <div class="bio">
+            <p>现居深圳，主业视觉设计师。擅长体验交互类需求落地，擅长情感化与同理心设计。拥有丰富的策展、公共教育与艺术教育经验，具有数据驱动与转化优化设计的能力，具备跨部门沟通、AI 赋能工作流与项目管理能力。</p>
+            <p class="en">Based in Shenzhen, working primarily as a visual designer. Skilled at delivering experience and interaction work, and at emotional, empathy-led design. Extensive experience in curation, public education, and art education, with the ability to design from data and improve conversion. Able to work across teams, bring AI into the workflow, and manage projects.</p>
+          </div>
+        </div>
+        <div class="rail" id="work-rail" aria-label="作品 Work"></div>
+      </main>
+
+      <div class="filters" id="filters" role="toolbar" aria-label="按类型筛选 Filter by type"></div>
+      <hr class="hero-rule" />
+    </div>
+
+    <section class="work" id="work" aria-label="作品 Work">
+      <div class="board">
+        <article class="panel panel--list">
+          <ul class="work-list" id="work-list"></ul>
+        </article>
+        <div class="stage">
+          <div class="stage-well">
+            <div class="frame-fit" id="frame-fit" style="--ar: 1.777">
+              <div class="frame-hit" id="frame-open" role="button" tabindex="0" aria-label="放大 Enlarge">
+                <img id="frame-img" class="is-on" alt="" />
+                <img id="frame-img-next" alt="" />
+                <video id="frame-video" controls playsinline preload="metadata" hidden></video>
+              </div>
+            </div>
+          </div>
+          <div class="spread" id="spread" hidden></div>
+          <div class="frame-nav">
+            <button class="pager" type="button" id="frame-prev"><span class="pager__arrow" aria-hidden="true">‹</span><span>上一张<span class="en">Previous</span></span></button>
+            <span class="frame-count" id="frame-count"></span>
+            <button class="pager" type="button" id="frame-next"><span>下一张<span class="en">Next</span></span><span class="pager__arrow" aria-hidden="true">›</span></button>
+          </div>
+          <div class="films" id="films" hidden></div>
+        </div>
+        <article class="panel panel--copy" id="project-copy"></article>
+      </div>
+    </section>
+
+    <div class="lightbox" id="lightbox" hidden>
+      <div class="lightbox-bar">
+        <p id="lightbox-caption"></p>
+        <button type="button" id="lightbox-close" aria-label="关闭 Close">关闭 Close</button>
+      </div>
+      <button type="button" class="lightbox-nav prev" id="lightbox-prev" aria-label="上一张 Previous">‹</button>
+      <figure class="lightbox-stage"><img id="lightbox-img" alt="" /></figure>
+      <button type="button" class="lightbox-nav next" id="lightbox-next" aria-label="下一张 Next">›</button>
+    </div>
+    <script src="main.js"></script>
+  </body>
+</html>
