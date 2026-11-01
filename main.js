@@ -417,7 +417,7 @@ function renderRail() {
         .map(
           (item) => `<button class="rail-card" type="button" data-project="${item.id}" aria-label="${item.title} ${item.titleEn}">
         <span class="rail-card__fit">
-          <img src="${coverSrc(item)}" alt="${item.title} ${item.titleEn}" style="--crop:${item.id === "sea" || item.id === "zong" ? "1.18" : "1"}" />
+          <img src="${coverSrc(item)}" alt="${item.title} ${item.titleEn}" />
           <span class="rail-card__side"><span class="rail-card__vertical">${item.title}</span></span>
           <span class="rail-card__face">
             <span class="rail-card__title">${item.title}<br />${item.subtitle}</span>

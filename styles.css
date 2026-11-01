@@ -452,8 +452,10 @@ img { display: block; }
 .film__frame video {
   width: 100%;
   height: 100%;
-  object-fit: contain;
+  object-fit: cover;
   background: #111;
+  transform: scale(1.03);
+  transform-origin: center center;
 }
 .film__play {
   position: absolute;
@@ -501,7 +503,7 @@ img { display: block; }
   transition: opacity 0.75s ease, transform 0.9s cubic-bezier(0.23, 1, 0.32, 1);
 }
 .frame-hit img.is-on,
-.frame-hit video.is-on { opacity: 1; transform: none; z-index: 1; }
+.frame-hit video.is-on { opacity: 1; transform: scale(1.015); z-index: 1; }
 .frame-hit img.is-leave,
 .frame-hit video.is-leave { opacity: 0; transform: translate3d(-6%, 0, 0); }
 .frame-hit video[hidden] { display: none; }
