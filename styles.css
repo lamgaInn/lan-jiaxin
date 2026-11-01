@@ -597,15 +597,27 @@ img { display: block; }
 .lightbox-nav {
   position: absolute;
   top: 50%;
-  width: 36px;
-  height: 36px;
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  translate: 0 -50%;
+  width: 40px;
+  height: 40px;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  border: 1px solid rgba(255, 255, 255, 0.28);
   border-radius: 50%;
   color: #fff;
-  font-size: 1.3rem;
 }
-.lightbox-nav.prev { left: 12px; }
-.lightbox-nav.next { right: 12px; }
+.lightbox-nav__glyph {
+  width: 8px;
+  height: 8px;
+  border-top: 1.5px solid currentColor;
+  border-right: 1.5px solid currentColor;
+  display: block;
+}
+.lightbox-nav.prev { left: 16px; }
+.lightbox-nav.prev .lightbox-nav__glyph { transform: translateX(1px) rotate(-135deg); }
+.lightbox-nav.next { right: 16px; }
+.lightbox-nav.next .lightbox-nav__glyph { transform: translateX(-1px) rotate(45deg); }
 
 @media (max-width: 1200px) {
   .shell { padding: 40px 60px; }
