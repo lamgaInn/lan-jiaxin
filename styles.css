@@ -608,16 +608,13 @@ img { display: block; }
   color: #fff;
 }
 .lightbox-nav__glyph {
-  width: 8px;
-  height: 8px;
-  border-top: 1.5px solid currentColor;
-  border-right: 1.5px solid currentColor;
   display: block;
+  width: 18px;
+  height: 18px;
+  overflow: visible;
 }
 .lightbox-nav.prev { left: 16px; }
-.lightbox-nav.prev .lightbox-nav__glyph { transform: translateX(1px) rotate(-135deg); }
 .lightbox-nav.next { right: 16px; }
-.lightbox-nav.next .lightbox-nav__glyph { transform: translateX(-1px) rotate(45deg); }
 
 @media (max-width: 1200px) {
   .shell { padding: 40px 60px; }
