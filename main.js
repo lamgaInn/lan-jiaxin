@@ -294,18 +294,68 @@ function railScrollMode() {
   return window.matchMedia("(max-width: 768px)").matches;
 }
 
+const railEase = (() => {
+  const p1x = 0.45;
+  const p1y = 0.02;
+  const p2x = 0.55;
+  const p2y = 0.98;
+  const cx = 3 * p1x;
+  const bx = 3 * (p2x - p1x) - cx;
+  const ax = 1 - cx - bx;
+  const cy = 3 * p1y;
+  const by = 3 * (p2y - p1y) - cy;
+  const ay = 1 - cy - by;
+  const sampleX = (t) => ((ax * t + bx) * t + cx) * t;
+  const sampleY = (t) => ((ay * t + by) * t + cy) * t;
+  const sampleDX = (t) => (3 * ax * t + 2 * bx) * t + cx;
+  return (x) => {
+    if (x <= 0) return 0;
+    if (x >= 1) return 1;
+    let t = x;
+    for (let i = 0; i < 6; i += 1) {
+      const dx = sampleX(t) - x;
+      const slope = sampleDX(t);
+      if (Math.abs(dx) < 1e-4 || Math.abs(slope) < 1e-4) break;
+      t -= dx / slope;
+    }
+    return sampleY(Math.min(1, Math.max(0, t)));
+  };
+})();
+
+let railAnim = 0;
+let railBoxLeft = 0;
+
+function stopRailAnim() {
+  if (railAnim) cancelAnimationFrame(railAnim);
+  railAnim = 0;
+}
+
+function poseRail(card, s, x) {
+  card._s = s;
+  card._x = x;
+  card.style.transform = `translate3d(${x}px,0,0) scaleX(${s})`;
+  const fit = card._fit || (card._fit = card.querySelector(".rail-card__fit"));
+  if (fit) fit.style.transform = `scaleX(${1 / s})`;
+}
+
+function clearRailPose(card) {
+  card.style.transform = "";
+  card.style.width = "";
+  card.style.removeProperty("--open");
+  const fit = card._fit || card.querySelector(".rail-card__fit");
+  if (fit) fit.style.transform = "";
+}
+
 function layoutRail(index, animate) {
   const rail = document.getElementById("work-rail");
   const cards = [...rail.querySelectorAll(".rail-card")];
   if (!cards.length) return;
   const active = Math.max(0, Math.min(index, cards.length - 1));
+  stopRailAnim();
   if (railScrollMode()) {
     cards.forEach((card, i) => {
       card.classList.toggle("is-on", i === active);
-      card.style.width = "";
-      card.style.removeProperty("--open");
-      card.style.removeProperty("--x");
-      card.style.removeProperty("--s");
+      clearRailPose(card);
     });
     return;
   }
@@ -316,22 +366,41 @@ function layoutRail(index, animate) {
   const inner = width - gap * (count - 1);
   const open = inner * (6.5 / (6.5 + count - 1));
   const rest = (inner - open) / (count - 1);
-  if (!animate) rail.classList.add("is-settling");
+  const from = [];
+  const to = [];
   let cursor = 0;
   cards.forEach((card, i) => {
     const span = i === active ? open : rest;
     const s = Math.max(0.08, span / open);
+    const x = cursor - (open * (1 - s)) / 2;
+    from.push({ s: card._s ?? s, x: card._x ?? x });
+    to.push({ s, x });
+    card._hitLeft = cursor;
+    card._hitRight = cursor + span;
     card.style.setProperty("--open", `${open}px`);
-    card.style.setProperty("--s", s.toFixed(4));
-    card.style.setProperty("--x", `${cursor - (open * (1 - s)) / 2}px`);
     card.classList.toggle("is-on", i === active);
     cursor += span + gap;
   });
-  if (!animate) {
-    requestAnimationFrame(() => {
-      requestAnimationFrame(() => rail.classList.remove("is-settling"));
-    });
+  railBoxLeft = rail.getBoundingClientRect().left;
+  const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if (!animate || reduced || from.every((pose, i) => pose.s === to[i].s && pose.x === to[i].x)) {
+    cards.forEach((card, i) => poseRail(card, to[i].s, to[i].x));
+    return;
   }
+  const start = performance.now();
+  const tick = (now) => {
+    const t = Math.min(1, (now - start) / 1150);
+    const e = railEase(t);
+    cards.forEach((card, i) => {
+      poseRail(
+        card,
+        from[i].s + (to[i].s - from[i].s) * e,
+        from[i].x + (to[i].x - from[i].x) * e
+      );
+    });
+    railAnim = t < 1 ? requestAnimationFrame(tick) : 0;
+  };
+  railAnim = requestAnimationFrame(tick);
 }
 
 function setRailActive(card) {
@@ -658,19 +727,19 @@ workRail.addEventListener("click", (event) => {
   if (!button) return;
   openProject(button.dataset.project);
 });
+workRail.addEventListener("pointerenter", () => {
+  railBoxLeft = workRail.getBoundingClientRect().left;
+});
 workRail.addEventListener("pointermove", (event) => {
   if (railScrollMode()) return;
-  const cards = [...workRail.querySelectorAll(".rail-card")];
+  const cards = workRail.querySelectorAll(".rail-card");
   if (!cards.length) return;
-  const x = event.clientX - workRail.getBoundingClientRect().left;
+  const x = event.clientX - railBoxLeft;
   let chosen = cards[0];
   let nearest = Infinity;
   for (const card of cards) {
-    const open = parseFloat(card.style.getPropertyValue("--open")) || 0;
-    const s = parseFloat(card.style.getPropertyValue("--s")) || 1;
-    const tx = parseFloat(card.style.getPropertyValue("--x")) || 0;
-    const left = tx + (open * (1 - s)) / 2;
-    const right = left + open * s;
+    const left = card._hitLeft ?? 0;
+    const right = card._hitRight ?? 0;
     if (x >= left && x <= right) {
       chosen = card;
       nearest = 0;

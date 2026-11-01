@@ -201,22 +201,11 @@ img { display: block; }
 }
 .bio .en { margin-top: 8px; font-size: 0.78rem; line-height: 1.65; }
 
-@property --x {
-  syntax: "<length>";
-  inherits: false;
-  initial-value: 0px;
-}
-@property --s {
-  syntax: "<number>";
-  inherits: true;
-  initial-value: 1;
-}
 .rail {
   position: relative;
   height: 460px;
   min-width: 0;
 }
-.rail.is-settling .rail-card { transition: none; }
 .rail-empty {
   color: var(--text-muted);
 }
@@ -230,7 +219,7 @@ img { display: block; }
   margin: 0;
   padding: 0;
   border: 0;
-  border-radius: calc(16px / var(--s, 1)) / 16px;
+  border-radius: 16px;
   background: #d9d7d2;
   color: #fff;
   font: inherit;
@@ -238,12 +227,11 @@ img { display: block; }
   appearance: none;
   overflow: hidden;
   opacity: 0.9;
-  transform: translate3d(var(--x), 0, 0) scaleX(var(--s, 1));
+  transform: translate3d(0, 0, 0);
   transform-origin: center center;
   box-shadow: 0 16px 34px rgba(26, 30, 45, 0.1);
-  transition: --x 1.15s var(--ease), --s 1.15s var(--ease), opacity 1.15s var(--ease);
+  transition: opacity 1.15s var(--ease);
   cursor: pointer;
-  will-change: transform, opacity;
 }
 .rail-card.is-on {
   opacity: 1;
@@ -252,7 +240,7 @@ img { display: block; }
 .rail-card__fit {
   position: absolute;
   inset: 0;
-  transform: scaleX(calc(1 / var(--s, 1)));
+  transform: scaleX(1);
   transform-origin: center center;
 }
 .rail-card__fit::after {
