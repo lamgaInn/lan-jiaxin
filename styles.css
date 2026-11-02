@@ -48,8 +48,7 @@ img { display: block; }
   width: 100%;
   max-width: 1600px;
   margin: 0 auto;
-  padding: 60px 100px 40px;
-  min-height: 100vh;
+  padding: 60px 100px 28px;
   display: flex;
   flex-direction: column;
   position: relative;
@@ -342,8 +341,8 @@ img { display: block; }
   flex-wrap: wrap;
   justify-content: center;
   gap: 2px 6px;
-  margin-top: auto;
-  margin-bottom: 28px;
+  margin-top: 8px;
+  margin-bottom: 22px;
 }
 .filters button {
   position: relative;
