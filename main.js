@@ -1,7 +1,27 @@
 const projects = [
   {
-    id: "norisle",
+    id: "ip",
     index: "01",
+    title: "ip创作-Ai工作流",
+    titleEn: "AI workflow",
+    subtitle: "Sakura Bird Folk · Monday",
+    subtitleEn: "Character series",
+    category: "ip",
+    categoryZh: "ip创作-Ai工作流",
+    categoryEn: "AI workflow",
+    year: "",
+    award: "",
+    awardEn: "",
+    count: 16,
+    pair: { src: "images/ip/b.mp4", poster: "images/ip/b-poster.jpg", from: 1, to: 5 },
+    summary:
+      "通过手绘草稿，使用GPT，Nano等生图软件产出效果图，Tripo3D进行模型制作，seeDance进行产品动画制作。<br>一组个人角色。Sakura Bird Folk 里有 Melodies Bird，以及小灵和婆婆。Monday 的页面写着星期一 · 咖啡续命、Fueled by coffee。每组从主视觉开始，后面是手稿、设定页和四视图。",
+    summaryEn:
+      "Hand-drawn sketches go through GPT, Nano and similar image tools for the renderings, Tripo3D for the models, and seeDance for the product animation.<br>A set of personal characters. Sakura Bird Folk includes Melodies Bird, plus Sprite and Grandma. Monday’s board reads 星期一 · 咖啡续命 and Fueled by coffee. Each group opens on its main sheet, then the sketches, design pages, and four-view turnarounds.",
+  },
+  {
+    id: "norisle",
+    index: "02",
     title: "Norisle",
     titleEn: "Nail brand",
     subtitle: "美甲品牌视觉",
@@ -28,7 +48,7 @@ const projects = [
   },
   {
     id: "na",
-    index: "02",
+    index: "03",
     title: "嗱",
     titleEn: "Na",
     subtitle: "粤语区后疫情时代生活方式",
@@ -47,7 +67,7 @@ const projects = [
   },
   {
     id: "ink",
-    index: "03",
+    index: "04",
     title: "水墨展",
     titleEn: "Ink Exhibition",
     subtitle: "策展与展览视觉",
@@ -65,7 +85,7 @@ const projects = [
   },
   {
     id: "zaohua",
-    index: "04",
+    index: "05",
     title: "造化于手",
     titleEn: "Made by Hand",
     subtitle: "肇庆美术馆 · 展览视觉",
@@ -84,7 +104,7 @@ const projects = [
   },
   {
     id: "sea",
-    index: "05",
+    index: "06",
     title: "讨海",
     titleEn: "Taohai",
     subtitle: "温岭石塘 · 品牌与包装",
@@ -103,7 +123,7 @@ const projects = [
   },
   {
     id: "zong",
-    index: "06",
+    index: "07",
     title: "裹香皇",
     titleEn: "Guoxianghuang",
     subtitle: "肇庆裹蒸 · 包装迭代",
@@ -121,7 +141,7 @@ const projects = [
   },
   {
     id: "paint",
-    index: "07",
+    index: "08",
     title: "绘画",
     titleEn: "Painting",
     subtitle: "水彩 · 白描 · 山水",
@@ -132,10 +152,10 @@ const projects = [
     year: "2014–2019",
     award: "",
     awardEn: "",
-    count: 6,
-    summary: "品牌和书籍之外的手绘。展板里有水彩、白描和中国山水，其中水彩标注的创作年份为 2014 与 2019。末页把三幅手绘稿排在同一张上。",
+    count: 5,
+    summary: "品牌和书籍之外的手绘。展板里有水彩、白描和中国山水，其中水彩标注的创作年份为 2014 与 2019。",
     summaryEn:
-      "Drawings apart from the brand and book work. The boards include acrylic, line drawing, and Chinese landscape, with acrylics dated 2014 and 2019. The last board places three drawings on one sheet.",
+      "Drawings apart from the brand and book work. The boards include acrylic, line drawing, and Chinese landscape, with acrylics dated 2014 and 2019.",
   },
 ];
 
@@ -146,13 +166,14 @@ const filters = [
   { id: "exhibition", zh: "策展视觉", en: "Exhibition" },
   { id: "packaging", zh: "品牌包装", en: "Packaging" },
   { id: "painting", zh: "绘画", en: "Painting" },
+  { id: "ip", zh: "ip创作-Ai工作流", en: "AI workflow" },
 ];
 
 const lightbox = document.getElementById("lightbox");
 const lightboxImg = document.getElementById("lightbox-img");
 const lightboxCaption = document.getElementById("lightbox-caption");
 let mode = "hero";
-let projectId = "norisle";
+let projectId = "ip";
 let filterId = "all";
 let query = "";
 let imageIndex = 1;
@@ -178,6 +199,7 @@ function visibleProjects() {
 }
 
 const ratios = {
+  ip: [2400 / 1811, 1, 1350 / 2400, 1922 / 2400, 1922 / 2400, 2400 / 1800, 1, 1922 / 2400, 1350 / 2400, 1922 / 2400, 2400 / 2360, 844 / 828, 2400 / 2360, 1350 / 2400, 2400 / 2360, 2400 / 1350],
   norisle: [1920 / 3200, 933 / 1228, 1, 933 / 1228, 1242 / 1660, 1242 / 1660, 1242 / 1660, 1242 / 1660, 2000 / 2673, 2000 / 1333, 2000 / 1333, 624 / 3200, 2000 / 1305],
 };
 const frameFit = document.getElementById("frame-fit");
@@ -190,6 +212,59 @@ let clipIndex = -1;
 let spreadOpen = false;
 let stillCursor = 0;
 let stills = [];
+
+const ipGroups = [
+  {
+    zh: "Melodies Bird",
+    en: "Sakura Bird Folk",
+    lead: true,
+    max: "17%",
+    height: "28vh",
+    items: [
+      { n: 1, alt: "Melodies Bird", max: "26%" },
+      { n: 2, alt: "Melodies Bird 手稿" },
+      { n: 3, alt: "Melodies Bird 设定" },
+      { n: 4, alt: "Melodies Bird 设定 2" },
+      { n: 5, alt: "Melodies Bird 四视图" },
+    ],
+  },
+  {
+    zh: "小灵 · 婆婆",
+    en: "Sprite and Grandma",
+    lead: true,
+    max: "17%",
+    height: "28vh",
+    items: [
+      { n: 6, alt: "小灵与婆婆", max: "26%" },
+      { n: 7, alt: "小灵与婆婆 手稿" },
+      { n: 8, alt: "小灵与婆婆 设定" },
+      { n: 9, alt: "小灵与婆婆 设定 2" },
+      { n: 10, alt: "小灵与婆婆 四视图" },
+    ],
+  },
+  {
+    zh: "Monday",
+    en: "Fueled by coffee",
+    lead: true,
+    max: "17%",
+    height: "28vh",
+    items: [
+      { n: 11, alt: "Monday", max: "26%" },
+      { n: 12, alt: "Monday 手稿" },
+      { n: 13, alt: "Monday 设定" },
+      { n: 14, alt: "Monday 设定 2" },
+      { n: 15, alt: "Monday 四视图" },
+    ],
+  },
+  {
+    zh: "红树林小岛",
+    en: "Felt characters",
+    lead: true,
+    max: "100%",
+    height: "28vh",
+    items: [{ n: 16, alt: "红树林小岛" }],
+  },
+];
 
 const norisleGroups = [
   {
@@ -493,9 +568,67 @@ function presentLightbox(src, alt, caption) {
   }
 }
 
+const pair = document.getElementById("pair");
+const pairVideo = document.getElementById("pair-video");
+
+function pairClip(project) {
+  const clip = project && project.pair;
+  if (!clip || imageIndex < clip.from || imageIndex > clip.to) return null;
+  return clip;
+}
+
+function playPair() {
+  pairVideo.muted = true;
+  pairVideo.defaultMuted = true;
+  pairVideo.setAttribute("muted", "");
+  pairVideo.playsInline = true;
+  pairVideo.loop = true;
+  pairVideo.autoplay = true;
+  const start = () => {
+    const attempt = pairVideo.play();
+    if (attempt) attempt.catch(() => {});
+  };
+  if (pairVideo.readyState >= 2) start();
+  else {
+    pairVideo.addEventListener("loadeddata", start, { once: true });
+    pairVideo.addEventListener("canplay", start, { once: true });
+  }
+}
+
+function hidePair(unload) {
+  pair.hidden = true;
+  pairVideo.pause();
+  document.querySelector(".stage").classList.remove("is-pair");
+  if (unload) {
+    pairVideo.removeAttribute("src");
+    pairVideo.load();
+  }
+}
+
+function showPair(clip) {
+  document.querySelector(".stage").classList.add("is-pair");
+  pair.hidden = false;
+  pairVideo.style.width = "100%";
+  pairVideo.style.height = "auto";
+  if (!pairVideo.src.endsWith(clip.src)) {
+    pairVideo.poster = clip.poster || "";
+    pairVideo.src = clip.src;
+  }
+  playPair();
+}
+
 function capStageImage(img) {
   if (!img.naturalWidth || !img.classList.contains("is-on")) return;
   const maxW = frameFit.parentElement.clientWidth || window.innerWidth;
+  const paired = document.querySelector(".stage").classList.contains("is-pair");
+  if (paired) {
+    const ar = img.naturalWidth / img.naturalHeight;
+    frameFit.style.width = "100%";
+    frameFit.style.height = `${maxW / ar}px`;
+    frameFit.style.maxHeight = "none";
+    frameFit.style.setProperty("--ar", String(ar));
+    return;
+  }
   const maxH = window.innerHeight * 0.62;
   const box = fitWithin(maxW, maxH, img.naturalWidth, img.naturalHeight);
   frameFit.style.width = `${box.w}px`;
@@ -516,6 +649,9 @@ function showFrame(animate) {
   view = "image";
   clipIndex = -1;
   hideVideo();
+  const clip = pairClip(project);
+  if (clip) showPair(clip);
+  else hidePair(project.pair == null);
   frameFit.style.setProperty("--ar", String(ratioFor(project, imageIndex)));
   const src = imageSrc(project, imageIndex);
   const outgoing = frameImgs[frameLayer];
@@ -555,27 +691,32 @@ function stopFilms() {
   });
 }
 
-function renderSpread() {
+function renderSpread(groups, clips) {
   const spread = document.getElementById("spread");
   stills = [];
-  const groups = norisleGroups
+  const grouped = groups
     .map((group) => {
-      const pieces = group.items
-        .map((item) => {
-          const index = stills.length;
-          stills.push({ src: imageSrc(current(), item.n), alt: item.alt });
-          const max = item.max || group.max;
-          return `<button class="piece" type="button" data-still="${index}" style="--piece-max:${max};--piece-h:${group.height}"><img src="${imageSrc(current(), item.n)}" alt="${item.alt}" /></button>`;
-        })
-        .join("");
-      return `<section class="cluster">
+      const lead = group.lead ? group.items[0] : null;
+      const rowItems = lead ? group.items.slice(1) : group.items;
+      const buttonFor = (item, wide) => {
+        const index = stills.length;
+        stills.push({ src: imageSrc(current(), item.n), alt: item.alt });
+        const max = wide ? "100%" : item.max || group.max;
+        const ratio = ratioFor(current(), item.n);
+        return `<button class="piece${wide ? " piece--wide" : ""}" type="button" data-still="${index}" style="--piece-max:${max};--piece-h:${group.height};--ar:${ratio}"><img src="${imageSrc(current(), item.n)}" alt="${item.alt}" /></button>`;
+      };
+      const hero = lead ? `<div class="cluster__hero">${buttonFor(lead, true)}</div>` : "";
+      const row = rowItems.map((item) => buttonFor(item, false)).join("");
+      const rowHtml = row ? `<div class="cluster__row">${row}</div>` : "";
+      return `<section class="cluster${group.lead ? " cluster--board" : ""}">
         <header class="cluster__head"><h3>${group.zh}</h3><p class="en">${group.en}</p></header>
-        <div class="cluster__row">${pieces}</div>
+        ${hero}
+        ${rowHtml}
       </section>`;
     })
     .join("");
-  const clips = current().clips || [];
-  const films = clips
+  const filmClips = clips || [];
+  const films = filmClips
     .map((clip, i) => {
       const ar = clip.w / clip.h;
       return `<button class="film" type="button" data-film="${i}">
@@ -588,10 +729,13 @@ function renderSpread() {
       </button>`;
     })
     .join("");
-  spread.innerHTML = `${groups}<section class="cluster">
+  const filmBlock = filmClips.length
+    ? `<section class="cluster">
     <header class="cluster__head"><h3>短片</h3><p class="en">Films</p></header>
     <div class="film-grid">${films}</div>
-  </section>`;
+  </section>`
+    : "";
+  spread.innerHTML = `${grouped}${filmBlock}`;
   spread.querySelectorAll(".film__frame img").forEach((img) => {
     img.addEventListener("load", () => capFilmFrame(img.closest(".film__frame"), img.naturalWidth, img.naturalHeight));
     if (img.complete && img.naturalWidth) capFilmFrame(img.closest(".film__frame"), img.naturalWidth, img.naturalHeight);
@@ -613,11 +757,17 @@ function renderProject(animateFrame) {
   const stage = document.querySelector(".stage");
   const spread = document.getElementById("spread");
   if (imageIndex > project.count) imageIndex = 1;
-  if (project.id === "norisle") {
+  if (project.id === "norisle" || project.id === "ip") {
     stage.classList.add("is-spread");
     spread.hidden = false;
     hideVideo();
-    renderSpread();
+    if (project.id === "ip") {
+      showPair(project.pair);
+      renderSpread(ipGroups);
+    } else {
+      hidePair(true);
+      renderSpread(norisleGroups, project.clips);
+    }
   } else {
     stage.classList.remove("is-spread");
     spread.hidden = true;
@@ -626,7 +776,7 @@ function renderProject(animateFrame) {
     showFrame(Boolean(animateFrame));
   }
   document.getElementById("project-copy").innerHTML = `
-    <p class="copy-kicker">${project.index} / 07</p>
+    <p class="copy-kicker">${project.index} / ${pad(projects.length)}</p>
     <h2 class="copy-title">${project.title}</h2>
     <p class="copy-name-en">${project.titleEn}</p>
     <p class="copy-sub">${project.subtitle}<span class="en">${project.subtitleEn}</span></p>
