@@ -262,7 +262,7 @@ const ipGroups = [
     lead: true,
     max: "100%",
     height: "28vh",
-    items: [{ n: 16, alt: "红树林小岛" }],
+    items: [{ n: 16, alt: "红树林小岛", v: "2" }],
   },
 ];
 
@@ -700,10 +700,11 @@ function renderSpread(groups, clips) {
       const rowItems = lead ? group.items.slice(1) : group.items;
       const buttonFor = (item, wide) => {
         const index = stills.length;
-        stills.push({ src: imageSrc(current(), item.n), alt: item.alt });
+        const src = imageSrc(current(), item.n) + (item.v ? `?v=${item.v}` : "");
+        stills.push({ src, alt: item.alt });
         const max = wide ? "100%" : item.max || group.max;
         const ratio = ratioFor(current(), item.n);
-        return `<button class="piece${wide ? " piece--wide" : ""}" type="button" data-still="${index}" style="--piece-max:${max};--piece-h:${group.height};--ar:${ratio}"><img src="${imageSrc(current(), item.n)}" alt="${item.alt}" /></button>`;
+        return `<button class="piece${wide ? " piece--wide" : ""}" type="button" data-still="${index}" style="--piece-max:${max};--piece-h:${group.height};--ar:${ratio}"><img src="${src}" alt="${item.alt}" /></button>`;
       };
       const hero = lead ? `<div class="cluster__hero">${buttonFor(lead, true)}</div>` : "";
       const row = rowItems.map((item) => buttonFor(item, false)).join("");
