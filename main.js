@@ -51,7 +51,7 @@ const projects = [
     year: "",
     award: "",
     awardEn: "",
-    count: 13,
+    count: 14,
     summary:
       "Norisle 的品牌视觉。包括标志、产品背景，以及一套植物香气指缘油礼盒，四支香气是晚汀、赤檐、霜杉、露川，规格 5ml × 4。同一组里还有店铺名的场景、公众号发布、课程介绍和短片。",
     summaryEn:
@@ -180,12 +180,12 @@ const projects = [
 
 const filters = [
   { id: "all", zh: "全部", en: "All" },
+  { id: "ip", zh: "ip创作-Ai工作流", en: "AI workflow" },
   { id: "brand", zh: "品牌视觉", en: "Brand" },
   { id: "book", zh: "书籍设计", en: "Book" },
   { id: "exhibition", zh: "策展视觉", en: "Exhibition" },
   { id: "packaging", zh: "品牌包装", en: "Packaging" },
   { id: "painting", zh: "绘画", en: "Painting" },
-  { id: "ip", zh: "ip创作-Ai工作流", en: "AI workflow" },
 ];
 
 const lightbox = document.getElementById("lightbox");
@@ -220,7 +220,7 @@ function visibleProjects() {
 const ratios = {
   ip: [2400 / 1811, 1, 1350 / 2400, 1922 / 2400, 1922 / 2400, 2400 / 1800, 1, 1922 / 2400, 1350 / 2400, 1922 / 2400, 2400 / 2360, 844 / 828, 2400 / 2360, 1350 / 2400, 2400 / 2360, 2400 / 1350],
   joyo: [3408 / 2432, ...Array(19).fill(3579 / 2551)],
-  norisle: [1920 / 3200, 933 / 1228, 1, 933 / 1228, 1242 / 1660, 1242 / 1660, 1242 / 1660, 1242 / 1660, 2000 / 2673, 2000 / 1333, 2000 / 1333, 624 / 3200, 2000 / 1305],
+  norisle: [1920 / 3200, 933 / 1228, 1, 933 / 1228, 1242 / 1660, 1242 / 1660, 1242 / 1660, 1242 / 1660, 2000 / 2673, 2000 / 1333, 2000 / 1333, 624 / 3200, 2000 / 1305, 1280 / 3840],
 };
 const frameFit = document.getElementById("frame-fit");
 const frameImgs = [document.getElementById("frame-img"), document.getElementById("frame-img-next")];
@@ -287,6 +287,22 @@ const ipGroups = [
 ];
 
 const norisleGroups = [
+
+  {
+    zh: "店铺名设计",
+    en: "Shop name in place",
+    max: "46%",
+    height: "20vh",
+    items: [
+      { n: 10, alt: "店铺名设计场景展示 1" },
+      { n: 11, alt: "店铺名设计场景展示 2" },
+    ],
+  },  {
+    zh: "产品详情",
+    en: "Product details",
+    long: true,
+    items: [{ n: 14, alt: "Norisle 产品详情" }],
+  },
   {
     zh: "产品背景卡",
     en: "Product backgrounds",
@@ -296,16 +312,6 @@ const norisleGroups = [
       { n: 2, alt: "产品背景卡 1" },
       { n: 3, alt: "产品背景卡 2" },
       { n: 4, alt: "产品背景卡 3" },
-    ],
-  },
-  {
-    zh: "店铺名设计",
-    en: "Shop name in place",
-    max: "46%",
-    height: "20vh",
-    items: [
-      { n: 10, alt: "店铺名设计场景展示 1" },
-      { n: 11, alt: "店铺名设计场景展示 2" },
     ],
   },
   {
@@ -756,6 +762,13 @@ function renderSpread(groups, clips) {
         const ratio = ratioFor(current(), item.n);
         return `<button class="piece${wide ? " piece--wide" : ""}" type="button" data-still="${index}" style="--piece-max:${max};--piece-h:${group.height};--ar:${ratio}"><img src="${src}" alt="${item.alt}" /></button>`;
       };
+      if (group.long) {
+        const pieces = group.items.map((item) => buttonFor(item, true)).join("");
+        return `<section class="cluster cluster--long">
+        <header class="cluster__head"><h3>${group.zh}</h3><p class="en">${group.en}</p></header>
+        <div class="long-window">${pieces}</div>
+      </section>`;
+      }
       const hero = lead ? `<div class="cluster__hero">${buttonFor(lead, true)}</div>` : "";
       const row = rowItems.map((item) => buttonFor(item, false)).join("");
       const rowHtml = row ? `<div class="cluster__row">${row}</div>` : "";
