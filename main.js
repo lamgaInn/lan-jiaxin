@@ -577,16 +577,45 @@ function pairClip(project) {
   return clip;
 }
 
+let pairUnlock = null;
+
+function openPairSound() {
+  pairVideo.muted = false;
+  pairVideo.defaultMuted = false;
+  pairVideo.removeAttribute("muted");
+  try {
+    pairVideo.volume = 0.5;
+  } catch (err) {}
+}
+
+function releasePairUnlock() {
+  if (!pairUnlock) return;
+  document.removeEventListener("pointerdown", pairUnlock, true);
+  document.removeEventListener("keydown", pairUnlock, true);
+  pairUnlock = null;
+}
+
 function playPair() {
-  pairVideo.muted = true;
-  pairVideo.defaultMuted = true;
-  pairVideo.setAttribute("muted", "");
+  openPairSound();
   pairVideo.playsInline = true;
   pairVideo.loop = true;
   pairVideo.autoplay = true;
   const start = () => {
+    openPairSound();
     const attempt = pairVideo.play();
-    if (attempt) attempt.catch(() => {});
+    if (!attempt) return;
+    attempt.catch(() => {
+      pairVideo.muted = true;
+      pairVideo.play().catch(() => {});
+      releasePairUnlock();
+      pairUnlock = () => {
+        openPairSound();
+        pairVideo.play().catch(() => {});
+        releasePairUnlock();
+      };
+      document.addEventListener("pointerdown", pairUnlock, true);
+      document.addEventListener("keydown", pairUnlock, true);
+    });
   };
   if (pairVideo.readyState >= 2) start();
   else {
@@ -596,6 +625,7 @@ function playPair() {
 }
 
 function hidePair(unload) {
+  releasePairUnlock();
   pair.hidden = true;
   pairVideo.pause();
   document.querySelector(".stage").classList.remove("is-pair");
