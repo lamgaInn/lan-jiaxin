@@ -20,8 +20,27 @@ const projects = [
       "Hand-drawn sketches go through GPT, Nano and similar image tools for the renderings, Tripo3D for the models, and seeDance for the product animation.<br>A set of personal characters. Sakura Bird Folk includes Melodies Bird, plus Sprite and Grandma. Monday’s board reads 星期一 · 咖啡续命 and Fueled by coffee. Each group opens on its main sheet, then the sketches, design pages, and four-view turnarounds.",
   },
   {
-    id: "norisle",
+    id: "joyo",
     index: "02",
+    title: "久游JOYO",
+    titleEn: "JOYO",
+    subtitle: "景区智能接驳车",
+    subtitleEn: "Electric leisure vehicle",
+    category: "brand",
+    categoryZh: "品牌视觉",
+    categoryEn: "Brand",
+    year: "",
+    award: "",
+    awardEn: "",
+    count: 20,
+    summary:
+      "久游 · JOYO 的品牌视觉。这是一辆景区智能接驳车，英文写着 Electric Leisure Vehicle，口号是「行至久处 游于无界」。封面之后是品牌介绍、关于久游，以及技术亮点。",
+    summaryEn:
+      "Brand identity for 久游 · JOYO, an electric shuttle for scenic areas. The cover reads Electric Leisure Vehicle, with the line 行至久处 游于无界. After the cover come the brand introduction, an about page, and the technical highlights.",
+  },
+  {
+    id: "norisle",
+    index: "03",
     title: "Norisle",
     titleEn: "Nail brand",
     subtitle: "美甲品牌视觉",
@@ -48,7 +67,7 @@ const projects = [
   },
   {
     id: "na",
-    index: "03",
+    index: "04",
     title: "嗱",
     titleEn: "Na",
     subtitle: "粤语区后疫情时代生活方式",
@@ -67,7 +86,7 @@ const projects = [
   },
   {
     id: "ink",
-    index: "04",
+    index: "05",
     title: "水墨展",
     titleEn: "Ink Exhibition",
     subtitle: "策展与展览视觉",
@@ -85,7 +104,7 @@ const projects = [
   },
   {
     id: "zaohua",
-    index: "05",
+    index: "06",
     title: "造化于手",
     titleEn: "Made by Hand",
     subtitle: "肇庆美术馆 · 展览视觉",
@@ -104,7 +123,7 @@ const projects = [
   },
   {
     id: "sea",
-    index: "06",
+    index: "07",
     title: "讨海",
     titleEn: "Taohai",
     subtitle: "温岭石塘 · 品牌与包装",
@@ -123,7 +142,7 @@ const projects = [
   },
   {
     id: "zong",
-    index: "07",
+    index: "08",
     title: "裹香皇",
     titleEn: "Guoxianghuang",
     subtitle: "肇庆裹蒸 · 包装迭代",
@@ -141,7 +160,7 @@ const projects = [
   },
   {
     id: "paint",
-    index: "08",
+    index: "09",
     title: "绘画",
     titleEn: "Painting",
     subtitle: "水彩 · 白描 · 山水",
@@ -200,6 +219,7 @@ function visibleProjects() {
 
 const ratios = {
   ip: [2400 / 1811, 1, 1350 / 2400, 1922 / 2400, 1922 / 2400, 2400 / 1800, 1, 1922 / 2400, 1350 / 2400, 1922 / 2400, 2400 / 2360, 844 / 828, 2400 / 2360, 1350 / 2400, 2400 / 2360, 2400 / 1350],
+  joyo: [3408 / 2432, ...Array(19).fill(3579 / 2551)],
   norisle: [1920 / 3200, 933 / 1228, 1, 933 / 1228, 1242 / 1660, 1242 / 1660, 1242 / 1660, 1242 / 1660, 2000 / 2673, 2000 / 1333, 2000 / 1333, 624 / 3200, 2000 / 1305],
 };
 const frameFit = document.getElementById("frame-fit");
